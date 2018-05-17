@@ -14,10 +14,12 @@ secondWindow = duration of the second window
 SCT 04/07/2018. A sad time.
 */
 
-const int timeOfFirstWindow = 20; // in minutes
+const int timeOfFirstWindow = 15; // in minutes
 const int firstWindow = 30; // in seconds
-const int timeOfSecondWindow = 40; // in minutes
+const int timeOfSecondWindow = 30; // in minutes
 const int secondWindow = 90; // in seconds
+const int timeOfThirdWindow = 60;
+const int timeOfFourthWindow = 90;
 
 const int numPins = 12;
 
@@ -67,6 +69,22 @@ void loop() {
        }
        // now we're in the second window
        else if( ((currentTime - (buttonTime[inScan] + 60000*timeOfSecondWindow))/(1000)) < secondWindow) {
+         digitalWrite(inOutMap[inScan], LOW);
+       }
+        // check if it's the third window yet
+       else if( ((currentTime - buttonTime[inScan])/(60000)) < timeOfThirdWindow ) {
+         digitalWrite(inOutMap[inScan], HIGH);
+       }
+       // now we're in the third window
+       else if( ((currentTime - (buttonTime[inScan] + 60000*timeOfThirdWindow))/(1000)) < firstWindow) {
+         digitalWrite(inOutMap[inScan], LOW);
+       }
+        // check if it's the fourth window yet
+       else if( ((currentTime - buttonTime[inScan])/(60000)) < timeOfFourthWindow ) {
+         digitalWrite(inOutMap[inScan], HIGH);
+       }
+       // now we're in the fourth window
+       else if( ((currentTime - (buttonTime[inScan] + 60000*timeOfFourthWindow))/(1000)) < secondWindow) {
          digitalWrite(inOutMap[inScan], LOW);
        }
        else {
